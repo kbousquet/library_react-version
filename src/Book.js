@@ -1,14 +1,18 @@
 import deleteBtn from './img/delete.svg'
 export default function Book(props){
+       
+    const styles = {
+        backgroundColor: props.read ? "rgb(56, 100, 79)" : "rgb(110, 58, 58)"
+    }
 
     return(
         <div className="card">
-                <button className="delete"><img src={deleteBtn} /></button>
+                <button className="delete"><img src={deleteBtn} alt="Delete button" onClick={props.deleteBtn} /></button>
                 <div className="book-info">
-                    <p>{props.title}</p>
-                    <p>By {props.author}</p>
-                    <p>{props.pages} Pages</p>
-                    {/* <button className="read">Read</button> */}
+                    <h2 className="title">{props.title}</h2>
+                    <p className="author">By: {props.author}</p>
+                    <p className="pages">{props.pages} Pages</p>
+                    <button className="readStatus" style={styles} onClick={props.toggleRead}>{props.read ? 'Read' : 'Not read'}</button>
                 </div>
         </div>
     )

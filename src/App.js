@@ -6,17 +6,82 @@ import Book from './Book';
 
 
 function App() {
-  const bookList =[
-    {
-      id: 1,
-      title: "Twilight",
-      author: "Stephanie Meyer",
-      pages: "498",
-      read: true
-    }
-  ];
+  
+  const [books, setBooks] = React.useState([]);
+  
+  function openForm(){
+    document.querySelector(".popup").classList.add("active");
+  };
+  function closeForm(){
+    document.querySelector(".popup").classList.remove("active");
+  };
+  function resetForm(){
+      document.getElementById("title").value = '';
+      document.getElementById("author").value = '';
+      document.getElementById("pages").value = '';
+      document.getElementById("read").checked = false;
+  };
 
-  const [books, setBooks] = React.useState(bookList);
+  // Book constructor
+  function NewBook(title, author, pages, read){
+    this.title = title
+    this.author = author
+    this.pages = pages
+    this.read = read
+  };
+
+  // Construct book objects
+  function addBookToLibrary(title, author, pages){
+    let read;
+    if (document.getElementById("read").checked){
+      read = true;
+    } else{
+      read = false;
+    }
+
+    let book = new NewBook(title, author, pages, read);
+    for(let i = 0; i < books.length+1; i++){
+      book.id = i+1;
+    }
+    setBooks(prevBooks => [...prevBooks, book]);
+  };
+
+  function displayBooks(e){
+      e.preventDefault();
+      let title = document.getElementById("title").value;
+      let author = document.getElementById("author").value;
+      let pages = document.getElementById("pages").value;
+      if (title && author && pages){
+          addBookToLibrary(title, author, pages);
+          resetForm();
+          setBooks(prevBooks => {
+            return prevBooks.map((book) => {
+              return book
+            })
+          })
+      } else {
+          alert('Please fill out all fields');
+      }
+  };
+
+  function deleteBook(id){
+    let updatedBooks = [];
+    books.forEach(book => {
+      if (book.id !== id){
+        updatedBooks.push(book)
+      };
+    });
+
+    updatedBooks.forEach(book => {
+      book.id = books.indexOf(book);
+    });
+
+    setBooks((prevBooks) => {
+      prevBooks = updatedBooks.map((i) => {return i});
+      return prevBooks;
+    });
+  };
+  
 
   function toggleRead(id){
     setBooks(prevBooks => {
@@ -26,25 +91,54 @@ function App() {
     });
   };
 
-  const bookElements = books.map(book => (
+  let bookElements = books.map(book => (
     <Book
       key={book.id}
       title={book.title}
       author={book.author}
       pages={book.pages}
-      read={() => toggleRead(book.id)} 
+      read={book.read}
+      toggleRead={() => toggleRead(book.id)} 
+      deleteBtn={() => deleteBook(book.id)}
     />
   ));
   
   return (
     <div className="App">
+      <div className="popup">
+          <div className="close-btn" onClick={closeForm}>&times;</div>
+          <div className="form">
+              <h2>Add Book</h2>
+              <form action="">
+                  <div className="form-element">
+                      <label for="title">Title</label>
+                      <input type="text" id="title" placeholder="Book title" required />
+                  </div>
+                  <div className="form-element">
+                      <label for="author">Author</label>
+                      <input type="text" id="author" placeholder="Author's name" maxLength="50" required />
+                  </div>
+                  <div className="form-element">
+                      <label for="pages">Pages</label>
+                      <input type="number" id="pages" placeholder="Number of pages" onInput={(e) => e.target.value = e.target.value.slice(0, 5)} required />
+                  </div>
+                  <div className="form-element">
+                      <input type="checkbox" id="read" />
+                      <label for="read">Read yet?</label>
+                  </div>
+                  <div className="form-element">
+                      <button className = "addBook" onClick={displayBooks}>Add to Library</button>
+                  </div>
+              </form>
+          </div> 
+      </div>
       <div className="container">
         <div className="header">
             <div className="logo">
-                <img className="books" src={bookshelf} />
+                <img className="books" src={bookshelf} alt="Bookshelf" />
                 <h1>my library</h1>
             </div>
-            <button className="add-btn">Add Book</button>
+            <button className="add-btn" onClick={openForm}>Add Book</button>
         </div>
         <div className="main">
           {bookElements}

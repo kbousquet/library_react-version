@@ -1,20 +1,14 @@
 import React from "react";
 import './styles.css';
-import GitHubIcon from "./img/GitHubIcon.png";
 import bookshelf from "./img/bookshelf.svg";
 import Book from './Book';
+import Dashboard from "./Dashboard";
 
 
 function App() {
   
   const [books, setBooks] = React.useState([]);
   
-  function openForm(){
-    document.querySelector(".popup").classList.add("active");
-  };
-  function closeForm(){
-    document.querySelector(".popup").classList.remove("active");
-  };
   function resetForm(){
       document.getElementById("title").value = '';
       document.getElementById("author").value = '';
@@ -105,50 +99,20 @@ function App() {
   
   return (
     <div className="App">
-      <div className="popup">
-          <div className="close-btn" onClick={closeForm}>&times;</div>
-          <div className="form">
-              <h2>Add Book</h2>
-              <form action="">
-                  <div className="form-element">
-                      <label for="title">Title</label>
-                      <input type="text" id="title" placeholder="Book title" required />
-                  </div>
-                  <div className="form-element">
-                      <label for="author">Author</label>
-                      <input type="text" id="author" placeholder="Author's name" maxLength="50" required />
-                  </div>
-                  <div className="form-element">
-                      <label for="pages">Pages</label>
-                      <input type="number" id="pages" placeholder="Number of pages" onInput={(e) => e.target.value = e.target.value.slice(0, 5)} required />
-                  </div>
-                  <div className="form-element">
-                      <input type="checkbox" id="read" />
-                      <label for="read">Read yet?</label>
-                  </div>
-                  <div className="form-element">
-                      <button className = "addBook" onClick={displayBooks}>Add to Library</button>
-                  </div>
-              </form>
-          </div> 
-      </div>
-      <div className="container">
+      <Dashboard
+            displayBooks={displayBooks}
+          />
+      <div className="right-content">
         <div className="header">
             <div className="logo">
                 <img className="books" src={bookshelf} alt="Bookshelf" />
                 <h1>my library</h1>
             </div>
-            <button className="add-btn" onClick={openForm}>Add Book</button>
         </div>
         <div className="main">
           {bookElements}
         </div>
-        <div className="spacer"></div>
-    </div>
-    
-    <div className="footer">
-        <p>Code by kbousquet <a href="https://github.com/kbousquet/library"> <img src={GitHubIcon} alt="Git Hub icon" height="20" /></a></p>
-    </div>
+      </div>
     </div>
   );
 }

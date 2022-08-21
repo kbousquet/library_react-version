@@ -1,6 +1,12 @@
+html, body {
+    margin:0;
+    padding:0;
+    min-height:100vh;
+    overflow: hidden;
+}
+
 body{
     color:#CBD2D9;
-    margin:0;
     font-family: 'Nanum Myeongjo', serif;
     font-weight: bold;
 }
@@ -20,16 +26,10 @@ button{
     cursor:pointer;
 }
 
-.readStatus{
-    color:#CBD2D9;
-    border: 1px solid rgb(44, 44, 44);
-    position:absolute;
-    bottom:20px;
-}
-
-.pages{
-    position:absolute;
-    bottom:65px;
+.App{
+    height:100%;
+    width:100%;
+    display: flex;
 }
 
 .author{
@@ -37,134 +37,15 @@ button{
     top:220px;
 }
 
-.title{
-    position:absolute;
-    top:100px;
-}
-
-.container{
-    min-height:100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-.header{
-    height:250px;
-    background-color: #1F2933;
-    position: relative;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.logo{
-    display: flex;
-    align-items: center;
-}
-
 .books{
     height:100px;
     padding-right: 15px;
 }
 
-.popup{
-    position: absolute;
-    z-index: 1;
-    top:-150%;
-    left:50%;
-    opacity: 0;
-    transform:translate(-50%,-50%) scale(1.25);
-    width:300px;
-    height:400px;
-    background-color: #616E7C;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border-radius: 10px;
-    padding: 10px 30px;
-    transition: top 0ms ease-in-out 200ms,
-                opacity 200ms ease-in-out 0ms 
-                transform 20ms ease-in-out 0ms;
-}
-
-.popup.active{
-    top:50%;
-    opacity: 1;
-    transform:translate(-50%,-50%) scale(1);
-    transition: top 0ms ease-in-out 0ms,
-                opacity 200ms ease-in-out 0ms 
-                transform 20ms ease-in-out 0ms;
-}
-
-.popup .close-btn{
-    position:absolute;
-    top:10px;
-    right:10px;
-    width:15px;
-    height:15px;
-    cursor:pointer;
-}
-
-.popup .form h2{
+.book-form h2{
     text-align: center;
     color: #EFC9A4;
     font-size: 25px;
-}
-
-.popup .form .form-element{
-    margin: 15px 0px;
-}
-
-.popup .form .form-element input[type="text"],
-.popup .form .form-element input[type="number"]{
-    margin-top:5px;
-    display:block;
-    width:275px;
-    padding: 10px;
-    border:1px solid rgb(86, 93, 100);
-    border-radius: 5px;
-}
-
-.popup .form .form-element input[type="checkbox"]{
-    margin-right:5px;
-}
-
-.popup .form .form-element button{
-    width:100%;
-    
-}
-
-.main{
-    background-color: #222222;
-    min-height: 100%;
-    padding-bottom: 30px;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.card{
-    background-color: #3A424C;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border-radius: 10px;
-    margin:30px 0px 0px 30px;
-    height:400px;
-    max-width: 300px;
-    min-width: 300px;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position:relative;
-    text-align: center;
-}
-
-.delete{
-    background-color: transparent;
-    position:absolute;
-    top:10px;
-    right:10px;
-    width: 30px;
-    
 }
 
 .book-info{
@@ -202,16 +83,142 @@ button{
     word-break: break-word;
 }
 
-.spacer{
-    background-color: #222222;
-    flex:1;
+.card{
+    background-color: #3A424C;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+    margin:30px 0px 0px 30px;
+    height:400px;
+    max-width: 300px;
+    min-width: 300px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position:relative;
+    text-align: center;
 }
 
+.dashboard{
+    position: fixed;
+    width: 320px;
+    background-color: #616E7C;
+    height: 100vh;
+    flex-shrink: 0;
+    z-index: 11;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete{
+    background-color: transparent;
+    position:absolute;
+    top:10px;
+    right:10px;
+    width: 30px;
+}
+
+/* .filter-form{
+    display: flex;
+    flex-direction: column;
+    padding-top: 100px;
+}
+
+.filter{
+    display:block;
+    width:150px;
+    padding: 10px;
+    border:1px solid rgb(86, 93, 100);
+    border-radius: 5px;
+    margin-top:5px;
+} */
+
 .footer{
-    height:75px;
+    position: absolute;
+    bottom: 0px;
+}
+
+.form-element{
+    margin: 15px 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-element button{
+    width:120px;
+    align-self: center;
+}
+
+.form-element input[type="text"],
+.form-element input[type="number"]{
+    margin-top:5px;
+    display:block;
+    width:200px;
+    padding: 10px;
+    border:1px solid rgb(86, 93, 100);
+    border-radius: 5px;
+}
+
+.form-element input[type="checkbox"]{
+    margin-right:5px;
+}
+
+.header{
+    position:fixed;
+    height:200px;
+    left: 320px;
+    width: calc(100vw - 320px)!important;
     background-color: #1F2933;
-    display:flex;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;
     justify-content: center;
     align-items: center;
-    color: #CBD2D9;
+    z-index: 10;
+    flex-grow:1;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+}
+
+.main{
+    background-color: #222222;
+    position:relative;
+    top: 200px;
+    left: 320px;
+    width: calc(100vw - 320px)!important;
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 100vh;
+    
+}
+
+.pages{
+    position:absolute;
+    bottom:65px;
+}
+
+
+.readStatus{
+    color:#CBD2D9;
+    border: 1px solid rgb(44, 44, 44);
+    position:absolute;
+    bottom:20px;
+}
+
+.right-content{
+    display: flex;
+    flex-direction: column;
+    flex-grow:1;
+    overflow-x:hidden;
+    width: auto;
+    min-width: 350px;
+}
+
+.title{
+    position:absolute;
+    top:100px;
 }

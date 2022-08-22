@@ -45,6 +45,14 @@ function App() {
       let title = document.getElementById("title").value;
       let author = document.getElementById("author").value;
       let pages = document.getElementById("pages").value;
+      if (!author){
+        author = 'Unknown'
+      }
+
+      if (!pages){
+        pages = 'Unknown'
+      }
+
       if (title && author && pages){
           addBookToLibrary(title, author, pages);
           resetForm();
@@ -53,9 +61,7 @@ function App() {
               return book
             })
           })
-      } else {
-          alert('Please fill out all fields');
-      }
+      } 
   };
 
   function deleteBook(id){
@@ -109,6 +115,7 @@ function App() {
                 <h1>my library</h1>
             </div>
         </div>
+        <div className="spacer"></div>
         <div className="main">
           {bookElements}
         </div>

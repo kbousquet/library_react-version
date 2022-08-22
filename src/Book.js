@@ -11,7 +11,7 @@ export default function Book(props){
                 <div className="book-info">
                     <h2 className="title">{props.title}</h2>
                     <p className="author">By: {props.author}</p>
-                    <p className="pages">{props.pages} Pages</p>
+                    <p className="pages">Pages: {props.pages}</p>
                     <button className="readStatus" style={styles} onClick={props.toggleRead}>{props.read ? 'Read' : 'Not read'}</button>
                 </div>
         </div>

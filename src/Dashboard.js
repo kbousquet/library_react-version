@@ -37,7 +37,7 @@ export default function Dashboard(props){
                     <option value="not-read">Not read</option>
                 </select>
             </form> */}
-            <p className="footer">Code by kbousquet <a href="https://github.com/kbousquet/library"> <img src={GitHubIcon} alt="Git Hub icon" height="20" /></a></p>
+            <p className="footer">Code by kbousquet <a href="https://github.com/kbousquet/library_react-version"> <img src={GitHubIcon} alt="Git Hub icon" height="20" /></a></p>
         </div>
     )
 }
